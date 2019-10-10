@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Log</title>
+    <script type="text/javascript" src="{%static 'js/reconnecting-websocket.min.js' %}"></script>
+    <script type="text/javascript" src="{%static 'js/jquery-3.4.1.js' %}"></script>
+    <script type="text/javascript" src="{%static 'js/chat.js' %}"></script>
+    <style>
+        body {
+            font-family: Helvetica,Arial,"PingFang SC","Hiragino Sans GB","Source Han Sans CN",Roboto,"Microsoft Yahei",sans-serif;
+        }
+
+        #container {
+            margin: 1em;
+        }
+
+        #container h2 {
+            border-left: 0.25em solid red;
+            padding-left: 0.5em;
+        }
+
+        ul#log {
+            list-style-type: none;
+            -webkit-padding-start: 0;
+        }
+
+        ul#log li {
+            border-bottom: 0.1em dashed;
+        }
+
+        ul#log li p {
+            color: #999;
+            font-size: 0.8em;
+        }
+
+        ul#log li p span {
+            float: right;
+        }
+        .notes{
+            float: right;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div id="container">
+        <h2>Live Blog</h2>
+        <p>与{{username}}聊天ing</p>
+
+        {% for ms in all %}
+        <div style="border:solid 1px; margin:10px;">
+             <p>{{ms.sender}} | {{ms.message}}</p>
+             <p>{{ms.created_at}}</p>
+         </div>
+        {%endfor%}
+        <p class="send_message"></p>
+
+
+    </div>
+    <form action="" method="post">
+        <p>
+            content:
+            <input type="text" id="send" name="content" required placeholder="请输入内容:">
+        </p>
+    <p>
+        <input id="ajax" type="submit"value="发送">
+    </p>
+    </form>
+
+<script type="text/javascript">
+    const currentUser = "{{ request.user.username}}";
+    const activeUser = "{{username}}" ;
+</script>
+
+</body>
+</html>
