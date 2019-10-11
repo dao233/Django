@@ -7,9 +7,9 @@ $(function(){
     ws.onmessage = function(event){
         const data = JSON.parse(event.data);
         var html = '<div style="border:solid 1px; margin:10px;"><p>'+data['sender']+' |' +data['message']+'</p><p>'+data['created_at']+'</p></div>'
-        $(".send_message").before(html);
-        if (data.sender === activeUser){
-            $(".send_message").before(event.message);
+        //$(".send_message").before(html);
+        if (data['sender'] === activeUser){
+            $(".send_message").before(html);
 
         }
     }
